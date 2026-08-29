@@ -80,7 +80,7 @@ async def cmd_start(message: types.Message):
     )
     
     await message.answer_photo(
-        photo=HEADER_IMAGE_URL,
+        photo=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0SmMv5kfjRYsCfyWcMeu2NKguepRLdpYBxc2WusXkYA&s,
         caption=caption_text,
         parse_mode="HTML",
         reply_markup=get_main_keyboard()
