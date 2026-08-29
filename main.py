@@ -5,22 +5,30 @@ from aiogram.filters import Command
 from aiogram.types import (
     FSInputFile, 
     InlineKeyboardMarkup, 
-    InlineKeyboardButton
+    InlineKeyboardButton,
+    WebAppInfo
 )
 
-# Ваш токен бота
 TOKEN = "8810017490:AAHt_hI6667e2ikAjDJMLhDHvJwI8k30MlQ"
+
+# Укажите точную ссылку на ваше Web App приложение (например, от Vercel, Render или Telegram)
+WEB_APP_URL = "https://playerok.com" 
 
 logging.basicConfig(level=logging.INFO)
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Клавиатура с кнопками под приветственным сообщением
 def get_main_keyboard():
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text="🔗 Открыть", url="https://t.me/playerokdeaall_bot")],
+            [
+                # Для работы Mini App используется web_app=WebAppInfo(...)
+                InlineKeyboardButton(
+                    text="🔗 Открыть", 
+                    web_app=WebAppInfo(url=WEB_APP_URL)
+                )
+            ],
             [
                 InlineKeyboardButton(text="👤 Профиль", callback_data="profile"),
                 InlineKeyboardButton(text="👛 Кошелек", callback_data="wallet")
@@ -37,7 +45,6 @@ def get_main_keyboard():
     )
     return keyboard
 
-# Хендлер команды /start
 @dp.message(Command("start"))
 async def start_cmd(message: types.Message):
     caption_text = (
@@ -46,7 +53,6 @@ async def start_cmd(message: types.Message):
     )
     
     try:
-        # Загрузка баннера IMG_3387.jpeg из корня репозитория
         photo = FSInputFile("IMG_3387.jpeg")
         await message.answer_photo(
             photo=photo,
@@ -62,7 +68,6 @@ async def start_cmd(message: types.Message):
             reply_markup=get_main_keyboard()
         )
 
-# Заглушка для нажатий на кнопки
 @dp.callback_query()
 async def process_callback(callback: types.CallbackQuery):
     await callback.answer("Раздел находится в разработке", show_alert=True)
