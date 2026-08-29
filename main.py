@@ -79,10 +79,12 @@ async def cmd_start(message: types.Message):
         "Покупайте, продавайте и обменивайте товары или услуги безопасно и удобно 🌲"
     )
     
-    await message.answer_photo(
-        photo=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0SmMv5kfjRYsCfyWcMeu2NKguepRLdpYBxc2WusXkYA&s,
-        caption=caption_text,
-        parse_mode="HTML",
+    photo = FSInputFile("IMG_3387.jpeg")
+
+await message.answer_photo(
+    photo=photo,
+    caption="<b>🟢 Playerok — Сервис для проведения сделок</b>\n\nПокупайте, продавайте и обменивайте товары или услуги безопасно и удобно 🎄",
+    parse_mode="HTML"
         reply_markup=get_main_keyboard()
     )
 
