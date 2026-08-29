@@ -19,11 +19,6 @@ SITE_URL = "https://playerok.com"
 
 HEADER_IMAGE_URL = "https://i.imgur.com/x4Z1R9V.png"
 
-# ID премиум-эмодзи из стикерпаков Telegram
-EMOJI_FIRE = "5368324170671202286"
-EMOJI_CHECK = "5449772635296839601"
-EMOJI_STAR = "5465432109876543210"
-
 users_db = set()
 
 bot = Bot(token=BOT_TOKEN)
@@ -65,7 +60,7 @@ def get_admin_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="🔔 Уведомление об аккаунте", callback_data="admin_send_acc_update")
+                InlineKeyboardButton(text="🔔 Отправить уведомление об аккаунте", callback_data="admin_send_acc_update")
             ],
             [
                 InlineKeyboardButton(text="📢 Общая рассылка", callback_data="admin_broadcast"),
@@ -80,8 +75,8 @@ async def cmd_start(message: types.Message):
     users_db.add(message.from_user.id)
     
     caption_text = (
-        f'<tg-emoji id="{EMOJI_CHECK}">⚡</tg-emoji> <b>Playerok — Сервис для проведения сделок</b>\n\n'
-        f'<tg-emoji id="{EMOJI_FIRE}">🔥</tg-emoji> Покупайте, продавайте и обменивайте товары или услуги безопасно и удобно!'
+        "🟢 <b>Playerok — Сервис для проведения сделок</b>\n\n"
+        "Покупайте, продавайте и обменивайте товары или услуги безопасно и удобно 🎄"
     )
     
     try:
@@ -104,11 +99,11 @@ async def process_menu_buttons(callback: types.CallbackQuery):
     action = callback.data.split("_")[1]
     
     responses = {
-        "profile": f'<tg-emoji id="{EMOJI_CHECK}">👤</tg-emoji> <b>Ваш профиль в Playerok:</b>\n\n🆔 ID: <code>{{}}</code>\n💳 Баланс: <b>0.00 RUB</b>',
-        "wallet": f'<tg-emoji id="{EMOJI_CHECK}">👛</tg-emoji> <b>Кошелек Playerok</b>\n\n💰 Доступный баланс: <b>0.00 RUB</b>',
-        "chats": f'<tg-emoji id="{EMOJI_CHECK}">💬</tg-emoji> <b>Мои чаты</b>\n\nУ вас пока нет активных диалогов.',
-        "create": f'<tg-emoji id="{EMOJI_FIRE}">⚡</tg-emoji> <b>Создание сделки</b>\n\nВыберите категорию товара или услуги.',
-        "support": f'<tg-emoji id="{EMOJI_CHECK}">🎧</tg-emoji> <b>Поддержка Playerok</b>\n\nОбратитесь к оператору через форму в приложении.'
+        "profile": "👤 <b>Ваш профиль в Playerok:</b>\n\nID: <code>{}</code>\nБаланс: 0.00 RUB",
+        "wallet": "👛 <b>Кошелек Playerok</b>\n\nДоступный баланс: 0.00 RUB",
+        "chats": "💬 <b>Мои чаты</b>\n\nУ вас пока нет активных диалогов.",
+        "create": "➕ <b>Создание сделки</b>\n\nВыберите категорию товара или услуги.",
+        "support": "🎧 <b>Поддержка Playerok</b>\n\nОбратитесь к оператору через форму в приложении."
     }
     
     text = responses.get(action, "Раздел обновляется.").format(callback.from_user.id)
@@ -122,7 +117,7 @@ async def cmd_admin(message: types.Message):
         return
     
     await message.answer(
-        f'<tg-emoji id="{EMOJI_FIRE}">⚙️</tg-emoji> <b>Панель администратора Playerok</b>\n\nВыберите действие:',
+        "⚙️ <b>Панель администратора Playerok</b>\n\nВыберите действие:",
         parse_mode="HTML",
         reply_markup=get_admin_keyboard()
     )
@@ -157,7 +152,7 @@ async def process_acc_update_text(message: types.Message, state: FSMContext):
     update_text = message.text
 
     notification_caption = (
-        f'<tg-emoji id="{EMOJI_CHECK}">🔔</tg-emoji> <b>PLAYEROK: УВЕДОМЛЕНИЕ ОБ АККАУНТЕ</b>\n\n'
+        "🔔 <b>PLAYEROK: УВЕДОМЛЕНИЕ ОБ АККАУНТЕ</b>\n\n"
         f"{update_text}\n\n"
         "<i>Если это были не вы, обратитесь в поддержку.</i>"
     )
