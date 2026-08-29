@@ -12,7 +12,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
 # ================= КОНФИГУРАЦИЯ =================
-BOT_TOKEN = "8810017490:AAHt_hI6667e2ikAjDJMLhDHvJwI8k30MlQ"
+BOT_TOKEN = "8810017490:AAHZ7wU0vc2BMeHQBq5XAPWZNn9L_HWUpBs"
 ADMIN_ID = 2011272893
 WEBAPP_URL = "https://playerok-webapp.vercel.app/"
 SITE_URL = "https://playerok.com"
@@ -75,8 +75,8 @@ async def cmd_start(message: types.Message):
     users_db.add(message.from_user.id)
     
     caption_text = (
-        "🟢 <b>Playerok — Сервис для проведения сделок</b>\n\n"
-        "Покупайте, продавайте и обменивайте товары или услуги безопасно и удобно 🎄"
+        '<tg-emoji id="5449772635296839601">🟢</tg-emoji> <b>Playerok — Сервис для проведения сделок</b>\n\n'
+        'Покупайте, продавайте и обменивайте товары или услуги безопасно и удобно <tg-emoji id="5449772635296839601">✨</tg-emoji>'
     )
     
     try:
@@ -99,11 +99,11 @@ async def process_menu_buttons(callback: types.CallbackQuery):
     action = callback.data.split("_")[1]
     
     responses = {
-        "profile": "👤 <b>Ваш профиль в Playerok:</b>\n\nID: <code>{}</code>\nБаланс: 0.00 RUB",
-        "wallet": "👛 <b>Кошелек Playerok</b>\n\nДоступный баланс: 0.00 RUB",
-        "chats": "💬 <b>Мои чаты</b>\n\nУ вас пока нет активных диалогов.",
-        "create": "➕ <b>Создание сделки</b>\n\nВыберите категорию товара или услуги.",
-        "support": "🎧 <b>Поддержка Playerok</b>\n\nОбратитесь к оператору через форму в приложении."
+        "profile": '<tg-emoji id="5449772635296839601">👤</tg-emoji> <b>Ваш профиль в Playerok:</b>\n\nID: <code>{}</code>\nБаланс: 0.00 RUB',
+        "wallet": '<tg-emoji id="5449772635296839601">👛</tg-emoji> <b>Кошелек Playerok</b>\n\nДоступный баланс: 0.00 RUB',
+        "chats": '<tg-emoji id="5449772635296839601">💬</tg-emoji> <b>Мои чаты</b>\n\nУ вас пока нет активных диалогов.',
+        "create": '<tg-emoji id="5449772635296839601">⚡</tg-emoji> <b>Создание сделки</b>\n\nВыберите категорию товара или услуги.',
+        "support": '<tg-emoji id="5449772635296839601">🎧</tg-emoji> <b>Поддержка Playerok</b>\n\nОбратитесь к оператору через форму в приложении.'
     }
     
     text = responses.get(action, "Раздел обновляется.").format(callback.from_user.id)
@@ -117,7 +117,7 @@ async def cmd_admin(message: types.Message):
         return
     
     await message.answer(
-        "⚙️ <b>Панель администратора Playerok</b>\n\nВыберите действие:",
+        '<tg-emoji id="5449772635296839601">⚙️</tg-emoji> <b>Панель администратора Playerok</b>\n\nВыберите действие:',
         parse_mode="HTML",
         reply_markup=get_admin_keyboard()
     )
@@ -152,7 +152,7 @@ async def process_acc_update_text(message: types.Message, state: FSMContext):
     update_text = message.text
 
     notification_caption = (
-        "🔔 <b>PLAYEROK: УВЕДОМЛЕНИЕ ОБ АККАУНТЕ</b>\n\n"
+        '<tg-emoji id="5449772635296839601">🔔</tg-emoji> <b>PLAYEROK: УВЕДОМЛЕНИЕ ОБ АККАУНТЕ</b>\n\n'
         f"{update_text}\n\n"
         "<i>Если это были не вы, обратитесь в поддержку.</i>"
     )
@@ -176,7 +176,10 @@ async def admin_stats(callback: types.CallbackQuery):
     if callback.from_user.id != ADMIN_ID:
         return
     await callback.answer()
-    await callback.message.answer(f"📊 Пользователей в базе: <b>{len(users_db)}</b>", parse_mode="HTML")
+    await callback.message.answer(
+        f'<tg-emoji id="5449772635296839601">📊</tg-emoji> Пользователей в базе: <b>{len(users_db)}</b>', 
+        parse_mode="HTML"
+    )
 
 @dp.callback_query(F.data == "admin_broadcast")
 async def admin_broadcast_start(callback: types.CallbackQuery, state: FSMContext):
