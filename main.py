@@ -12,7 +12,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 
 # ================= КОНФИГУРАЦИЯ =================
-BOT_TOKEN = "8787895314:AAHb1Ef6zVJhcdeTSEhvv5IX-b9Bs4PDBX8"
+BOT_TOKEN = "8787895314:AAFiuQnJ851aYgaVJ_oA6arxg-o-mSx0SqU"
 ADMIN_ID = 2011272893
 WEBAPP_URL = "https://playerok-webapp.vercel.app/"
 
